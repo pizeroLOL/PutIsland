@@ -1,0 +1,26 @@
+<ci:ComponentBase
+  xmlns:ci="http://classisland.tech/schemas/xaml/core"
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+  xmlns:putIsland="clr-namespace:PutIsland"
+  x:Class="PutIsland.TextSettings">
+  <ci:ComponentBase.DataContext>
+    <putIsland:TextSettingsModel />
+  </ci:ComponentBase.DataContext>
+  <ScrollViewer>
+    <StackPanel>
+      <controls:SettingsExpander
+        IconSource="{ci:FluentIconSource &#xEAB0;}"
+        Header="Token"
+        Description="唯一标识符">
+        <controls:SettingsExpander.Footer>
+          <TextBox
+            VerticalContentAlignment="Stretch"
+            HorizontalContentAlignment="Left"
+            Text="{Binding Token}" />
+        </controls:SettingsExpander.Footer>
+      </controls:SettingsExpander>
+    </StackPanel>
+  </ScrollViewer>
+</ci:ComponentBase>
