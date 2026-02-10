@@ -5,9 +5,9 @@
 
 id: PutIsland
 name: PutIsland
-description: 插件描述
+description: 添加允许外部软件通过 POST http://localhost:36000/<token> 更新的文本组件
 entranceAssembly: "PutIsland.dll"
-url: https://example.com
-version: 0.0.0.0
+url: https://github.com/pizeroLOL/PutIsland
+version: 0.1.0.0
 apiVersion: 2.0.0.0
-author: 无名氏
+author: pizeroLOL
