@@ -8,7 +8,9 @@ namespace PutIsland;
 
 [ComponentInfo(
     "f8412005-f577-4095-8431-194c8b4a02ea", // 这里需要替换成你生成的 GUID
-    "网络文本"
+    "网络文本",
+    "fluent(\uF414)",
+    "获取其他软件发往 http://localhost:36000/<token> 的信息"
 )]
 // ReSharper disable once ClassNeverInstantiated.Global
 public partial class Text : ComponentBase<TextSettingsModel> {
