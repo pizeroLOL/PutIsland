@@ -3,15 +3,11 @@
   xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:putIsland="clr-namespace:PutIsland"
+  x:TypeArguments="putIsland:TextSettingsModel"
   x:Class="PutIsland.Text"
   Loaded="Loaded"
   Unloaded="Unloaded">
-  <ci:ComponentBase.DataContext>
-    <putIsland:TextSettingsModel />
-  </ci:ComponentBase.DataContext>
   <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-    <!-- TODO: 这东西死活显示不了，不知道为什么 -->
-    <Label Content="{Binding Token}" />
     <Label Name="InnerText" />
   </Grid>
 </ci:ComponentBase>

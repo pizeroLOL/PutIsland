@@ -1,13 +1,8 @@
-using ReactiveUI;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace PutIsland;
 
 // ReSharper disable once ClassNeverInstantiated.Global
-public class TextSettingsModel : ReactiveObject {
-    private string _token = string.Empty;
-
-    public string Token {
-        get => _token;
-        set => this.RaiseAndSetIfChanged(ref _token, value);
-    }
+public partial class TextSettingsModel : ObservableObject {
+    [ObservableProperty] private string _token = string.Empty;
 }

@@ -4,10 +4,8 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
   xmlns:putIsland="clr-namespace:PutIsland"
+  x:TypeArguments="putIsland:TextSettingsModel"
   x:Class="PutIsland.TextSettings">
-  <ci:ComponentBase.DataContext>
-    <putIsland:TextSettingsModel />
-  </ci:ComponentBase.DataContext>
   <ScrollViewer>
     <StackPanel>
       <controls:SettingsExpander
@@ -18,7 +16,7 @@
           <TextBox
             VerticalContentAlignment="Stretch"
             HorizontalContentAlignment="Left"
-            Text="{Binding Token}" />
+            Text="{Binding $parent[ci:ComponentBase].Settings.Token}" />
         </controls:SettingsExpander.Footer>
       </controls:SettingsExpander>
     </StackPanel>

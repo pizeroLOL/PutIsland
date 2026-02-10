@@ -1,3 +1,4 @@
+using System.Threading.Channels;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using ClassIsland.Core.Abstractions.Controls;
@@ -12,43 +13,24 @@ namespace PutIsland;
 // ReSharper disable once ClassNeverInstantiated.Global
 public partial class Text : ComponentBase<TextSettingsModel> {
     private readonly CancellationTokenSource _tokenSource = new();
-    private bool _registed = true;
+    private Channel<(string key, string value)>? _channel;
 
     public Text() {
         InitializeComponent();
     }
 
     public new void Loaded(object? sender, RoutedEventArgs e) {
-        // TODO: 使用设置
-        var token = "123";
-        if (token == "") {
-            InnerText.Content = "Token 为空";
-            return;
-        }
-
-        if (Depot.Instance.RegisterToken(token)) {
-            InnerText.Content = $"<{token}> 冲突";
-            Depot.Instance.UnregisterToken(token);
-            _registed = false;
-            return;
-        }
-
-        InnerText.Content = $"<{token}>";
-        var channel =
-            Depot.Instance.MessageChannel.Reader.ReadAllAsync(
+        _channel = Depot.Instance.GroupChannel.Register();
+        var reader = _channel.Reader
+            .ReadAllAsync(
                 _tokenSource.Token);
+
         Task.Factory.StartNew(async () => {
-            await foreach (var message in channel) {
-                Console.WriteLine(message);
-                if (message.token != token) continue;
+            await foreach (var message in reader) {
+                if (message.key != Settings.Token.Trim()) continue;
 
                 await Dispatcher.UIThread.InvokeAsync(() => {
-                    // 再次检查冲突（可能动态注册）
-                    InnerText.Content =
-                        Depot.Instance.TokenListeners.GetValueOrDefault(token) >
-                        1
-                            ? $"<{token}>！冲突"
-                            : message.reqText;
+                    InnerText.Content = message.value;
                 });
             }
         });
@@ -56,7 +38,8 @@ public partial class Text : ComponentBase<TextSettingsModel> {
 
     public new void Unloaded(object? sender, RoutedEventArgs e) {
         _tokenSource.Cancel();
-        var token = "123";
-        if (_registed && token == "") Depot.Instance.UnregisterToken(token);
+        var token = Settings.Token.Trim();
+        if (_channel != null)
+            Depot.Instance.GroupChannel.Unregister(_channel);
     }
 }
