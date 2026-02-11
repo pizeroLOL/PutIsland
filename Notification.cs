@@ -6,7 +6,7 @@ using ClassIsland.Core.Models.Notification;
 namespace PutIsland;
 
 [NotificationProviderInfo(
-    "DD3BC389-BEA9-40B7-912B-C7C37390A101",
+    "9DD294B2-2151-410C-96D4-DE32F0ABD17D",
     "网络通知",
     "\uF414",
     "允许外部应用通过 post http://localhost:36000/<token> 发送通知"
