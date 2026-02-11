@@ -11,8 +11,9 @@ namespace PutIsland;
 public class Plugin : PluginBase {
     public override void Initialize(HostBuilderContext context,
         IServiceCollection services) {
-        services.AddComponent<Text, TextSettings>();
         _ = Depot.Instance;
+        services.AddComponent<Text, TextSettings>();
+        services.AddNotificationProvider<Notification,NotificationSettings>();
         // services.is
         AppBase.Current.AppStarted += (_, _) => {
             Console.WriteLine("PutIsland initialized");
