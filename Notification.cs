@@ -15,18 +15,17 @@ public class
     Notification : NotificationProviderBase<NotificationSettingsModel> {
     public Notification() {
         var link = Depot.Instance.GroupChannel.Register().Reader
-            .ReadAllAsync(Depot.Instance.TokenSource.Token);
+            .ReadAllAsync(Depot.Instance.PluginToken.Token);
         Task.Factory.StartNew(async () => {
             await foreach (var msg in link) {
-                if (msg.key != Settings.Token) {
-                    continue;
-                }
+                if (msg.key != Settings.Token) continue;
                 await Dispatcher.UIThread.InvokeAsync(() => {
-                    ShowNotification(new NotificationRequest() {
-                        MaskContent = NotificationContent.CreateTwoIconsMask(msg.value)
+                    ShowNotification(new NotificationRequest {
+                        MaskContent =
+                            NotificationContent.CreateTwoIconsMask(msg.value)
                     });
                 });
             }
-        }, Depot.Instance.TokenSource.Token);
+        }, Depot.Instance.PluginToken.Token);
     }
 }
